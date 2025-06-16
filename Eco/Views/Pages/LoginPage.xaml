@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Eco.Views.Pages.LoginPage"
+             Title="LoginPage">
+    <ScrollView>
+        <VerticalStackLayout Spacing="20" Padding="30">
+            <!-- Логотип -->
+            <Image Source="finance_tracker_logo.png"
+                   HeightRequest="100"
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,20"/>
+
+            <!-- Поля ввода -->
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Email" FontSize="14"/>
+                <Entry Placeholder="Введите email"
+                       Keyboard="Email"
+                       Text="{Binding Email}"/>
+
+                <Label Text="Пароль" FontSize="14" Margin="0,15,0,0"/>
+                <Entry Placeholder="Введите пароль"
+                       IsPassword="True"
+                       Text="{Binding Password}"/>
+            </VerticalStackLayout>
+
+            <!-- Кнопка входа -->
+            <Button Text="Войти" 
+                    Command="{Binding LoginCommand}"
+                    CornerRadius="20"
+                    BackgroundColor="{StaticResource Primary}"
+                    TextColor="White"
+                    Margin="0,30,0,0"/>
+
+            <!-- Ссылка на регистрацию -->
+            <Label Text="Нет аккаунта? Зарегистрироваться" 
+                   TextDecorations="Underline"
+                   HorizontalOptions="Center"
+                   Margin="0,20,0,0">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoToRegisterCommand}"/>
+                </Label.GestureRecognizers>
+            </Label>
+
+            <!-- Индикатор загрузки -->
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                              IsVisible="{Binding IsBusy}"
+                              Color="{StaticResource Primary}"
+                              HorizontalOptions="Center"
+                              Margin="0,20,0,0"/>
+
+            <Label Text="{Binding ErrorMessage}"
+       TextColor="Red"
+       HorizontalOptions="Center"
+       IsVisible="{Binding HasError}"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Eco.Views.Pages.MainPage"
+             xmlns:models="clr-namespace:Eco.Models"
+             Title="MainPage">
+    <RefreshView IsRefreshing="{Binding IsBusy}"
+                 Command="{Binding LoadDataCommand}">
+        <ScrollView>
+            <VerticalStackLayout Padding="15" Spacing="20">
+
+                <!-- Общий баланс -->
+                <Frame BackgroundColor="{StaticResource Primary}"
+                       CornerRadius="15"
+                       Padding="20">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Общий баланс"
+                               TextColor="White"
+                               FontSize="16"/>
+                        <Label Text="{Binding TotalBalance, StringFormat='{0:N2}'}"
+                               TextColor="White"
+                               FontSize="28"
+                               FontAttributes="Bold"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Доходы/Расходы -->
+                <Grid ColumnDefinitions="*,*"
+                      ColumnSpacing="15">
+                    <Frame BackgroundColor="#4CAF50"
+                           CornerRadius="15"
+                           Padding="15">
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="Доходы"
+                                   TextColor="White"
+                                   FontSize="14"/>
+                            <Label Text="{Binding MonthlyIncome, StringFormat='{0:N2}'}"
+                                   TextColor="White"
+                                   FontSize="18"
+                                   FontAttributes="Bold"/>
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Frame BackgroundColor="#F44336"
+                           CornerRadius="15"
+                           Padding="15"
+                           Grid.Column="1">
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="Расходы"
+                                   TextColor="White"
+                                   FontSize="14"/>
+                            <Label Text="{Binding MonthlyExpenses, StringFormat='{0:N2}'}"
+                                   TextColor="White"
+                                   FontSize="18"
+                                   FontAttributes="Bold"/>
+                        </VerticalStackLayout>
+                    </Frame>
+                </Grid>
+
+                <!-- Счета -->
+                <Frame CornerRadius="15"
+                       Padding="0"
+                       BackgroundColor="White">
+                    <VerticalStackLayout>
+                        <Label Text="Мои счета"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               Margin="15,10"/>
+
+                        <CollectionView ItemsSource="{Binding Accounts}"
+                                        HeightRequest="150">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="models:Account">
+                                    <Frame CornerRadius="10"
+                                           Margin="10,5"
+                                           BackgroundColor="{StaticResource Secondary}">
+                                        <Grid ColumnDefinitions="*,Auto"
+                                              RowDefinitions="Auto,Auto"
+                                              Padding="10">
+                                            <Label Text="{Binding Name}"
+                                                   FontSize="16"
+                                                   FontAttributes="Bold"/>
+
+                                            <Label Text="{Binding Balance}"
+                                                   FontSize="16"
+                                                   Grid.Column="1"/>
+
+                                            <Label Text="{Binding Currency.Code}"
+                                                   TextColor="Gray"
+                                                   FontSize="12"
+                                                   Grid.Row="1"/>
+                                        </Grid>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Последние транзакции -->
+                <Frame CornerRadius="15"
+                       Padding="0"
+                       BackgroundColor="White">
+                    <VerticalStackLayout>
+                        <Label Text="Последние операции"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               Margin="15,10"/>
+
+                        <CollectionView ItemsSource="{Binding RecentTransactions}"
+                                        HeightRequest="200">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="models:Transaction">
+                                    <Grid ColumnDefinitions="Auto,*,Auto"
+                                          Padding="10"
+                                          Margin="10,5">
+                                        <Frame CornerRadius="5"
+                                               WidthRequest="40"
+                                               HeightRequest="40"
+                                               BackgroundColor="{Binding Type, Converter={StaticResource TransactionTypeToColorConverter}}">
+                                            <Label Text="{Binding Type, Converter={StaticResource TransactionTypeToIconConverter}}"
+                                                   FontSize="16"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center"/>
+                                        </Frame>
+
+                                        <VerticalStackLayout Grid.Column="1"
+                                                             Margin="10,0">
+                                            <Label Text="{Binding Category}"
+                                                   FontSize="14"/>
+                                        </VerticalStackLayout>
+
+                                        <Label Text="{Binding Amount}"
+                                               FontSize="16"
+                                               TextColor="{Binding Amount, Converter={StaticResource TransactionTypeToColorConverter}}"
+                                               Grid.Column="2"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Кнопка выхода -->
+                <Button Text="Выйти"
+                        Command="{Binding LogoutCommand}"
+                        BackgroundColor="{StaticResource Primary}"
+                        TextColor="White"
+                        CornerRadius="10"
+                        Margin="0,20"/>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </RefreshView>
+</ContentPage>

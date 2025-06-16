@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:microcharts="clr-namespace:Microcharts;assembly=Microcharts"
+             xmlns:chart="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
+             x:Class="Eco.Views.Pages.ChartsPage"
+             Title="Статистика">
+    <ScrollView>
+        <VerticalStackLayout Spacing="15" Padding="15">
+            <!-- Тип данных -->
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                <Button Text="ОБЩИЙ" 
+                        CornerRadius="20"
+                        BackgroundColor="LightGray"
+                        Command="{Binding ChangeChartTypeCommand}"
+                        CommandParameter="all"/>
+                <Button Text="РАСХОДЫ" 
+                        CornerRadius="20"
+                        BackgroundColor="{StaticResource Primary}"
+                        TextColor="White"
+                        Command="{Binding ChangeChartTypeCommand}"
+                        CommandParameter="expense"/>
+                <Button Text="ДОХОДЫ" 
+                        CornerRadius="20"
+                        BackgroundColor="LightGray"
+                        Command="{Binding ChangeChartTypeCommand}"
+                        CommandParameter="income"/>
+            </HorizontalStackLayout>
+
+            <!-- Период -->
+            <FlexLayout Wrap="Wrap" JustifyContent="SpaceBetween">
+                <Button Text="по годам" 
+                        Margin="0,0,5,5"
+                        CornerRadius="10"
+                        BackgroundColor="LightGray"
+                        Command="{Binding ChangePeriodCommand}"
+                        CommandParameter="year"/>
+                <Button Text="по месяцам" 
+                        Margin="0,0,5,5"
+                        CornerRadius="10"
+                        BackgroundColor="{StaticResource Primary}"
+                        TextColor="White"
+                        Command="{Binding ChangePeriodCommand}"
+                        CommandParameter="month"/>
+                <Button Text="по неделям" 
+                        Margin="0,0,5,5"
+                        CornerRadius="10"
+                        BackgroundColor="LightGray"
+                        Command="{Binding ChangePeriodCommand}"
+                        CommandParameter="week"/>
+                <Button Text="по дням" 
+                        Margin="0,0,5,5"
+                        CornerRadius="10"
+                        BackgroundColor="LightGray"
+                        Command="{Binding ChangePeriodCommand}"
+                        CommandParameter="day"/>
+            </FlexLayout>
+
+            <BoxView HeightRequest="1" Color="LightGray"/>
+
+            <!-- Месяцы -->
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="15">
+                <Label Text="февр." FontSize="14"/>
+                <Label Text="март" FontSize="14" FontAttributes="Bold"/>
+                <Label Text="апр." FontSize="14" FontAttributes="Bold"/>
+                <Label Text="май" FontSize="14" FontAttributes="Bold"/>
+                <Label Text="июнь" FontSize="14" FontAttributes="Bold"/>
+            </HorizontalStackLayout>
+
+            <!-- График -->
+            <chart:ChartView x:Name="ChartView" 
+                             HeightRequest="300"
+                             Chart="{Binding Chart}"
+                             HorizontalOptions="Fill"
+                             BackgroundColor="Transparent"/>
+
+            <!-- Легенда -->
+            <Grid ColumnDefinitions="*,*" RowDefinitions="*,*" RowSpacing="10">
+                <HorizontalStackLayout Spacing="5">
+                    <BoxView WidthRequest="15" 
+                             HeightRequest="15"
+                             Color="Green"/>
+                    <Label Text="доходы"/>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Grid.Column="1" Spacing="5">
+                    <BoxView WidthRequest="15" 
+                             HeightRequest="15"
+                             Color="Red"/>
+                    <Label Text="расходы"/>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Grid.Row="1" Spacing="5">
+                    <BoxView WidthRequest="15" 
+                             HeightRequest="15"
+                             Color="Blue"/>
+                    <Label Text="прибыль"/>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Grid.Row="1" Grid.Column="1" Spacing="5">
+                    <BoxView WidthRequest="15" 
+                             HeightRequest="15"
+                             Color="Orange"/>
+                    <Label Text="убыток"/>
+                </HorizontalStackLayout>
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

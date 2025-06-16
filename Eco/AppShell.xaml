@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Eco.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Eco"
+    Shell.FlyoutBehavior="Disabled"
+    xmlns:views="clr-namespace:Eco.Views.Pages"
+    Title="Eco">
+
+    <!-- Маршруты авторизации -->
+    <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate views:LoginPage}" />
+    <ShellContent Route="RegisterPage" ContentTemplate="{DataTemplate views:RegisterPage}" />
+
+    <!-- Основная структура после авторизации -->
+    <TabBar>
+        <!-- Добавление -->
+        <Tab Title="Добавить">
+            <ShellContent ContentTemplate="{DataTemplate views:AddTransactionPage}" />
+        </Tab>
+
+        <Tab Title="Главная">
+            <ShellContent Route="MainPage" ContentTemplate="{DataTemplate views:MainPage}" />
+        </Tab>
+
+        <!-- Графики -->
+        <Tab Title="Аналитика">
+            <ShellContent ContentTemplate="{DataTemplate views:ChartsPage}" />
+        </Tab>
+    </TabBar>
+
+</Shell>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Eco.Views.Pages.SummaryPage"
+             Title="SummaryPage">
+    <ScrollView>
+        <VerticalStackLayout Spacing="15" Padding="15">
+            <!-- Общая сумма -->
+            <Label Text="1 000 ₽" 
+                   FontSize="28" 
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"/>
+
+            <!-- Тип операции -->
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="30">
+                <Button Text="РАСХОДЫ" 
+                        CornerRadius="20"
+                        BackgroundColor="{StaticResource Primary}"
+                        TextColor="White"
+                        WidthRequest="120"/>
+
+                <Button Text="ДОХОДЫ" 
+                        CornerRadius="20"
+                        BackgroundColor="LightGray"
+                        TextColor="Black"
+                        WidthRequest="120"/>
+            </HorizontalStackLayout>
+
+            <!-- Период -->
+            <FlexLayout Wrap="Wrap" JustifyContent="SpaceBetween">
+                <Button Text="День" 
+                        Margin="0,0,5,5"
+                        CornerRadius="10"
+                        BackgroundColor="LightGray"/>
+                <Button Text="Неделя" 
+                        Margin="0,0,5,5"
+                        CornerRadius="10"
+                        BackgroundColor="{StaticResource Primary}"
+                        TextColor="White"/>
+                <Button Text="Месяц" 
+                        Margin="0,0,5,5"
+                        CornerRadius="10"
+                        BackgroundColor="LightGray"/>
+                <Button Text="Год" 
+                        Margin="0,0,5,5"
+                        CornerRadius="10"
+                        BackgroundColor="LightGray"/>
+                <Button Text="Период" 
+                        Margin="0,0,5,5"
+                        CornerRadius="10"
+                        BackgroundColor="LightGray"/>
+            </FlexLayout>
+
+            <Label Text="16 июн. - 22 июн." 
+                   FontSize="16"
+                   HorizontalOptions="Center"/>
+
+            <BoxView HeightRequest="1" Color="LightGray"/>
+
+            <!-- Сообщение о расходах -->
+            <Label Text="На этой неделе расходов не было" 
+                   FontSize="16"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   TextColor="Gray"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Eco.Views.Pages.AddTransactionPage"
+             Title="AddTransactionPage">
+
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="15" Padding="15">
+             <!--Тип операции--> 
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="30">
+                <Button Text="РАСХОДЫ" 
+                        CornerRadius="20"
+                        BackgroundColor="{Binding IsIncome, Converter={StaticResource InvertBoolToColor}, ConverterParameter='Primary|LightGray'}"
+                        TextColor="{Binding IsIncome, Converter={StaticResource InvertBoolToColor}, ConverterParameter='White|Black'}"
+                        Command="{Binding ToggleTransactionTypeCommand}"
+                        WidthRequest="120"/>
+
+                <Button Text="ДОХОДЫ" 
+                        CornerRadius="20"
+                        BackgroundColor="{Binding IsIncome, Converter={StaticResource BoolToColor}, ConverterParameter='Primary|LightGray'}"
+                        TextColor="{Binding IsIncome, Converter={StaticResource BoolToColor}, ConverterParameter='White|Black'}"
+                        Command="{Binding ToggleTransactionTypeCommand}"
+                        WidthRequest="120"/>
+            </HorizontalStackLayout>
+
+            <BoxView HeightRequest="1" Color="LightGray"/>
+
+             <!--Валюта--> 
+            <Label Text="RUB" FontSize="18" FontAttributes="Bold" HorizontalOptions="Start"/>
+
+             <!--Счет и категория--> 
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                <VerticalStackLayout>
+                    <Label Text="Счет" FontSize="14" TextColor="Gray"/>
+                    <Picker Title="Выберите счет" 
+                            ItemsSource="{Binding Accounts}"
+                            SelectedItem="{Binding SelectedAccount}"
+                            ItemDisplayBinding="{Binding Name}"
+                            BackgroundColor="LightGray"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Column="1">
+                    <Label Text="Категория" FontSize="14" TextColor="Gray"/>
+                    <Picker Title="Выберите категорию"
+                            ItemsSource="{Binding Categories}"
+                            SelectedItem="{Binding SelectedCategory}"
+                            BackgroundColor="LightGray"/>
+                </VerticalStackLayout>
+            </Grid>
+
+             <!--Сумма--> 
+            <VerticalStackLayout>
+                <Label Text="Сумма" FontSize="14" TextColor="Gray"/>
+                <Entry Keyboard="Numeric"
+                       Placeholder="0.00"
+                       Text="{Binding Amount, StringFormat='{0:F2}'}"
+                       FontSize="18"
+                       BackgroundColor="LightGray"/>
+            </VerticalStackLayout>
+
+             <!--Быстрый выбор даты--> 
+            <Label Text="Дата" FontSize="14" TextColor="Gray"/>
+            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="5">
+                <Button Text="{Binding SelectedDate, StringFormat='{0:dd.MM} сегодня'}" 
+                        CornerRadius="10"
+                        BackgroundColor="LightGray"
+                        Command="{Binding SelectQuickDateCommand}"
+                        CommandParameter="0"/>
+
+                <Button Text="{Binding SelectedDate, StringFormat='{0:dd.MM} вчера'}" 
+                        Grid.Column="1"
+                        CornerRadius="10"
+                        BackgroundColor="LightGray"
+                        Command="{Binding SelectQuickDateCommand}"
+                        CommandParameter="1"/>
+
+                <Button Text="{Binding SelectedDate, StringFormat='{0:dd.MM} позавчера'}" 
+                        Grid.Column="2"
+                        CornerRadius="10"
+                        BackgroundColor="LightGray"
+                        Command="{Binding SelectQuickDateCommand}"
+                        CommandParameter="2"/>
+            </Grid>
+
+             <!--Комментарий--> 
+            <Label Text="Комментарий" FontSize="14" TextColor="Gray"/>
+            <Editor Placeholder="Введите комментарий" 
+                   Text="{Binding Comment}"
+                   HeightRequest="60"
+                   BackgroundColor="LightGray"
+                   Margin="0,0,0,10"/>
+
+             <!--Кнопка сохранения--> 
+            <Button Text="СОХРАНИТЬ" 
+                    Margin="0,20,0,0"
+                    CornerRadius="20"
+                    BackgroundColor="{StaticResource Primary}"
+                    TextColor="White"
+                    Command="{Binding SaveTransactionCommand}"
+                    IsEnabled="{Binding IsNotBusy}"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
